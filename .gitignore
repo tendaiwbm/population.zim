@@ -1,0 +1,16 @@
+#__pycache__
+**/__pycache__
+
+#jQuery
+**/jquery-3.6.2.js
+
+#dir
+scratchpad/
+ddl-scripts/vabatsiri/
+
+#other
+ddl-scripts/02_insert.sql
+ddl-scripts/03_insert.py
+ddl-scripts/03_resolve_insert.py
+
+
