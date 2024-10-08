@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+	<link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
+	<link rel="stylesheet" href="styles/geo.css">
+	<title>Geography - PopulationZim</title>
+	<meta name="viewport" content="initial-scale=0.8"/>
+</head>
+<body>
+	<div id="menu-bar">
+		<a href="home.html">
+			<img id="zim-flag" src="images/zim_menu_bar.jpg">
+		</a> 
+		<a href="https://github.com/tendaiwbm">
+			<img id="github" src="images/github_menu_bar.png">
+		</a>
+		<a href="https://www.linkedin.com/in/tendai-mbwanda/">
+			<img id="linkedin" src="images/linkedin_menu_bar.svg.png">
+		</a>
+	</div>
+	<div id ="menu-bottom-spacing"></div>
+	<div id="page">
+		<div id="demographic-dimensions">
+			<h2 id="demo-title">Demographic Categories</h2>
+			<div id="distribution" class="dimensions">
+				<span id="distribution-label" class="dimension-label">Distribution</span>
+			</div>
+			<div id="household" class="dimensions">
+				<span id="household-label" class="dimension-label">Household Characteristics</span>
+			</div>
+			<div id="migration" class="dimensions">
+				<span id="migration-label" class="dimension-label">Migration</span>
+			</div>
+			<div id="size-structure" class="dimensions">
+				<span id="structure-label" class="dimension-label">Size &amp; Structure</span>
+			</div>
+			<div id="activity-labour" class="dimensions">
+				<span id="activity-label" class="dimension-label">Economic Activity</span>
+			</div>
+			<div id="education" class="dimensions">
+				<span id="education-label" class="dimension-label">Education</span>
+			</div>
+			<div id="housing" class="dimensions">
+				<span id="housing-label" class="dimension-label">Housing Characteristics</span>
+			</div>
+			<div id="fertility" class="dimensions">
+				<span id="fertility-label" class="dimension-label">Fertility &amp; Mortality</span>
+			</div>
+		</div>
+		<script type="text/javascript" src="scripts/geo/category_events.js"></script>
+		<div id="map">
+			<iframe id="filter-criteria" src="filter/geo/distro.html" frameBorder="0"></iframe>
+		</div>
+		<script type="text/javascript" src="scripts/geo/geo.js"></script>
+	</div>
+	<div id ="footer-summit-spacing"></div>
+	<div id="footer"></div>
+	
+	<script type="text/javascript" src="scripts/geo/diridza.js"></script>
+</body>
+</html>

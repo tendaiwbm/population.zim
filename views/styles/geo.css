@@ -1,0 +1,199 @@
+* {
+	box-sizing: border-box;
+	background-color: #000000;
+	font-family: 'Cascadia Code', sans-serif;
+	color: white;
+	margin: 0px;
+}
+
+#menu-bar {
+	width: 100%;
+	height: 50px;
+	position: relative;
+}
+
+#zim-flag {
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 5px;
+	left: 1px;
+}
+
+#github {
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 5px;
+	left: 41px;
+}
+
+#linkedin {
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 5px;
+	left: 81px;
+}
+
+#menu-bottom-spacing { height: 5px; }
+#page { position: relative; }
+
+#demographic-dimensions {
+	position: relative;
+	top: 1px;
+	width: 30%;
+	height: 800px;
+	//border: 5px dashed #FFFFFF;
+}
+
+.leaflet-control-container, .leaflet-top, .leaflet-right, .leaflet-zoom-animated  {
+	background-color: #333333;
+}
+
+#map,.leaflet-overlay-pane {
+	position: absolute;
+	top: 1px;
+	right: 1px;
+	width: 70%;
+	height: 800px;
+	background-color: #333333;
+	max-height: 800px;
+}
+
+#demo-title {
+	position: absolute;
+	left: 10px;
+}
+
+.dimensions {
+	border: 3px solid #FCE300;
+	background-color: #FCE300;
+	opacity: 80%;
+	position: absolute;
+	border-radius: 10px;
+}
+
+.dimension-label {
+	color: #000000;
+	background-color: #FCE300;
+	position: absolute;
+}
+
+#distribution {
+	width: 140px;
+	height: 30px;
+	top: 60px;
+	left: 10px;
+}
+
+#distribution-label {
+	top: 1px;
+	left: 11px;
+}
+
+#household {
+	width: 170px;
+	height: 50px;
+	top: 105px;
+	left: 10px;
+}
+
+#household-label {
+	width: 50px;
+	top: 1px;
+	left: 11px;
+}
+
+#migration {
+	width: 115px;
+	height: 30px;
+	top: 170px;
+	left: 10px;
+}
+
+#migration-label {
+	top: 1px;
+	left: 11px;
+}
+
+#size-structure {
+	width: 115px;
+	height: 50px;
+	top: 215px;
+	left: 10px;
+}
+
+#structure-label {
+	width: 70px;
+	top: 1px;
+	left: 11px;
+}
+
+#activity-labour {
+	width: 190px;
+	height: 30px;
+	top: 280px;
+	left: 10px;
+}
+
+#activity-label {
+	top: 1px;
+	left: 11px;
+}
+
+#education {
+	width: 115px;
+	height: 30px;
+	top: 325px;
+	left: 10px;
+}
+
+#education-label {
+	top: 1px;
+	left: 11px;
+}
+
+#housing {
+	width: 170px;
+	height: 50px;
+	top: 370px;
+	left: 10px;
+}
+
+#housing-label {
+	width: 50px;
+	top: 1px;
+	left: 11px;
+}
+
+#fertility {
+	width: 225px;
+	height: 30px;
+	top: 435px;
+	left: 10px;
+}
+
+#fertility-label {
+	top: 1px;
+	left: 11px;
+}
+
+#footer-summit-spacing { height: 5px; }
+
+#footer {
+	width: 100%;
+	height: 50px;
+	border: 5px dashed #FFFFFF;
+}
+
+#filter-criteria {
+	width: 100%;
+	height: 800px;
+	position: absolute;	
+	left: 20px;
+	top: 10px;
+	background-color: #333333;
+	visibility: hidden;
+}
+
