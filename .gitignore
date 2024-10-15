@@ -9,11 +9,10 @@
 **/populationzim_uwsgi.ini
 **/*.swp
 
-
 #dir
 scratchpad/
 ddl-scripts/02_insert.sql
 
 #django
 **/setting.py
-
+**/worker.py
