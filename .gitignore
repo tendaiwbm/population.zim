@@ -7,6 +7,8 @@
 #hoko
 **/populationzim.sock
 **/populationzim_uwsgi.ini
+**/*.swp
+
 
 #dir
 scratchpad/
