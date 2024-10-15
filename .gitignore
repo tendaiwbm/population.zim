@@ -12,3 +12,6 @@
 scratchpad/
 ddl-scripts/02_insert.sql
 
+#django
+**/setting.py
+
