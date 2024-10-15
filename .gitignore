@@ -4,6 +4,10 @@
 #jQuery
 **/jquery-3.6.2.js
 
+#hoko
+**/populationzim.sock
+**/populationzim_uwsgi.ini
+
 #dir
 scratchpad/
 ddl-scripts/02_insert.sql
