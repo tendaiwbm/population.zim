@@ -16,10 +16,13 @@ def distro_validator(qDict):
             }
     for key in qDict:
         try:
-            qDict["sex"] = vDict["sex"][qDict["sex"]]
+            qDict[key] = vDict["sex"][qDict[key]]
         except:
             raise ValueError(f"Distribution does not understand input '{qDict['sex']}'.")
-    
-    
-             
 
+    '''
+    use admin_validator here
+    for filtering by:
+        1. district
+        2. province
+    '''
