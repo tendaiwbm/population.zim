@@ -1,28 +1,31 @@
+'''
+simple script to validate & sanitize input from FE
+returns True if input validated successfully
+otherwise, throws an ambiguous ValueError
+'''
 
-
-def admin_validator(qDict):
-    vDict = {"district":"district","province":"province"}
+def admin_validator(qDictIn):
+    vDict = {"ward":"ward","district":"district","province":"province"}
     try:
-        adminLevel = vDict[qDict["admin-level"]]
+        adminLevel = vDict[qDictIn["admin"]]
     except:
-        raise ValueError(f"Distribution does not understand input '{qDict['admin-level'}'.")
+        raise ValueError(f"Distribution does not understand input '{qDict['admin-level']}'.")
+    return True
 
-
-def distro_validator(qDict):
+def distro_validator(qDictIn):
     vDict = {
-             "sex":     {"total":"total","male":"male","female":"female"},
-             "year":    {"2002":"2002","2012":2012,"2022":"2022"},
-             "grain":   {"district":"district","ward":"ward","province":"province"},
+             "category": {"distribution":"distribution"},
+             "sex":      {"total":"total","male":"male","female":"female"},
+             "year":     {"2002":"2002","2012":2012,"2022":"2022"},
+             "grain":    {"district":"district","ward":"ward","province":"province"}
             }
-    for key in qDict:
-        try:
-            qDict[key] = vDict["sex"][qDict[key]]
-        except:
-            raise ValueError(f"Distribution does not understand input '{qDict['sex']}'.")
-
-    '''
-    use admin_validator here
-    for filtering by:
-        1. district
-        2. province
-    '''
+    qDictOut = {}
+    for key in qDictIn:
+        if key != "admin":
+            try:
+                qDictOut.setdefault(key,vDict[key][qDictIn[key]])
+            except:
+                raise ValueError(f"""Distribution does not understand input '{key}'.""")
+        else:
+            admin_validator(qDictIn)
+    return True
