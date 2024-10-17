@@ -15,4 +15,5 @@ ddl-scripts/02_insert.sql
 
 #django
 **/settings.py
-**/worker.py
+**/.env
+
