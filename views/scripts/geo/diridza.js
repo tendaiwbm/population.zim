@@ -33,7 +33,7 @@ function diridza(params) {
 }
 
 function zvakavanda(level) {
-	var mahobho = `${BASE}${API_GEO_STUB}/zvakavanda?level=${level}`;
+	var mahobho = `${BASE}${API_GEO_STUB}/zvakavanda?admin=${level}`;
 	console.log("Meta URL  >>  " + mahobho);
 	munyayi(mahobho,console.log);
 }
