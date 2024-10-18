@@ -37,7 +37,7 @@ AS $$
 DECLARE
 BEGIN
 	UPDATE prelim.ward
-	SET area = ST_AREA(shape);
+	SET area = ST_AREA(shape)/1000000;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -68,7 +68,7 @@ AS $$
 DECLARE
 BEGIN
         UPDATE prelim.district
-        SET area = ST_AREA(shape);
+        SET area = ST_AREA(shape)/1000000;
 END;    
 $$ LANGUAGE plpgsql;
 
@@ -116,7 +116,7 @@ AS $$
 DECLARE
 BEGIN
         UPDATE prelim.province
-        SET area = ST_AREA(shape);
+        SET area = ST_AREA(shape)/1000000;
 END;
 $$ LANGUAGE plpgsql;
 
