@@ -7,9 +7,10 @@
 }
 
 #menu-bar {
-	width: 100%;
+	width: 30%;
 	height: 50px;
 	position: relative;
+	border: 5px dashed #FFFFFF;
 }
 
 #zim-flag {
@@ -44,21 +45,26 @@
 	top: 1px;
 	width: 30%;
 	height: 800px;
-	//border: 5px dashed #FFFFFF;
+	border: 5px dashed #FFFFFF;
 }
 
 .leaflet-control-container, .leaflet-top, .leaflet-right, .leaflet-zoom-animated  {
-	background-color: #333333;
+	background-color: black;
 }
 
 #map,.leaflet-overlay-pane {
 	position: absolute;
-	top: 1px;
-	right: 1px;
+	top: 0px;
+	right: 0px;
 	width: 70%;
-	height: 800px;
-	background-color: #333333;
-	max-height: 800px;
+	height: 856px;
+	background-color: black;
+	max-height: 856px;
+	border: 5px dashed #FFFFFF;
+}
+
+.leaflet-top,.leaflet-left {
+	visibility: hidden;
 }
 
 #demo-title {
@@ -67,16 +73,16 @@
 }
 
 .dimensions {
-	border: 3px solid #FCE300;
-	background-color: #FCE300;
-	opacity: 80%;
+	border: 3px solid #009739;
+	//background-color: #009739;
+	//opacity: 80%;
 	position: absolute;
 	border-radius: 10px;
 }
 
 .dimension-label {
-	color: #000000;
-	background-color: #FCE300;
+	color: white;
+	//background-color: #009739;
 	position: absolute;
 }
 
