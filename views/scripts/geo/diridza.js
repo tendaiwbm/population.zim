@@ -27,7 +27,7 @@ function mhinduro(event,mutumwa) {
 
 // tumira, penengura mhinduro, gadzirisa map
 function diridza(params) {
-	var mahobho = `${BASE}${API_GEO_STUB}?category=${CategoryState["categorySelected"].toLowerCase()}&admin=${params["admin-level"]}&grain=${params["granularity"]}&year=${params["year"]}&sex=${params["sex"]}`;
+	var mahobho = `${BASE}${API_GEO_STUB}?category=${CategoryState["categorySelected"].toLowerCase()}&admin=${params["admin-level"]}&grain=${params["granularity"]}&year=${params["year"]}&sex=male`;
 	munyayi(mahobho,params["zvadzoka"]);
 	return;
 }

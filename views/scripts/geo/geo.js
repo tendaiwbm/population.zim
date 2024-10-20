@@ -13,11 +13,12 @@ var map = L.map('map', {
 
 map.attributionControl.setPrefix("");
 
+
 function colour(feature) {
-	return feature > 3500 ? "#4d0000" : 
-		   feature > 2500 ? "#4d0000" :
-		   feature > 1500 ? "#cca300" :
-		   					"#f2f2f2";
+	return feature > 3500 ? "#a8281eff" : 
+		   feature > 2500 ? "#d83020ff" :
+		   feature > 1500 ? "#f07062ff" :
+		   					"#f89b91ff" ;
 };	
 
 function geometryResponseHandler(response) {
@@ -36,3 +37,9 @@ function geometryResponseHandler(response) {
 	map.attributionControl.addAttribution("ZIMSTAT  |  Leaflet  |  HDX")
 	map.zoomControl.setPosition("topright");
 }
+
+/*
+/// Esri color ramps - Esri Red 1
+// #a8281eff,#d83020ff,#f07062ff,#f89b91ff,#fbb1a8ff
+const colors = ["#a8281eff", "#d83020ff", "#f07062ff", "#f89b91ff", "#fbb1a8ff"];
+*/

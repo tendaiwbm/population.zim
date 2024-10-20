@@ -8,7 +8,7 @@ function updateCategoryState(event) {
 	const frame = document.getElementById("filter-criteria");
 	if (CategoryState["filterActive"]) {
 		frame.style.visibility = "hidden";
-		document.getElementById("map").style.visibility = "visible";
+		//document.getElementById("map").style.visibility = "visible";
 		CategoryState["filterActive"] = false;
 		CategoryState["categorySelected"] = "";
 	}
