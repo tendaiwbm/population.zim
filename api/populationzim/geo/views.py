@@ -5,7 +5,7 @@ from geo.utils import queryMunyayi,wkt2Array,prepareAdminNames
 @wkt2Array
 def fetch_distribution(request):
     if distro_validator(request.GET):
-        query = f"""select {request.GET['sex']}_population_{request.GET['year']},st_astext(shape) from prelim.ward where district_name = 'Gokwe North'"""
+        query = f"""select {request.GET['sex']}_population_{request.GET['year']},st_astext(shape) from prelim.ward where province_name in ('Midlands','Matebeleland North')"""
         return queryMunyayi(query)
 
 @prepareAdminNames
