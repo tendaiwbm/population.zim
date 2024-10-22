@@ -60,7 +60,41 @@
 	height: 856px;
 	background-color: black;
 	max-height: 856px;
+	//border: 5px dashed #FFFFFF;
+}
+
+#filter-container {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 75px;
 	border: 5px dashed #FFFFFF;
+}
+
+#admin-container,#grain-container,#year-container,#sex-container,#admin-names-container {
+	position: absolute;
+	top: 3px;
+}
+
+#admin-container {
+	left: 10px;
+}
+
+#grain-container {
+	left: 125px;
+}
+
+#year-container {
+	left: 240px;
+}
+
+#sex-container {
+	left: 325px;
+}
+
+#admin-names-container {
+	left: 388px;
 }
 
 .leaflet-top,.leaflet-left {
