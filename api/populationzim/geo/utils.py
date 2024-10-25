@@ -20,7 +20,7 @@ def wkt2Array(decoratee):
 
 def prepareAdminNames(decoratee):
     def wrapper(query):
-        return JsonResponse({"admin":[admin[0] for admin in decoratee(query)]})
+        return JsonResponse({query.GET["admin"]:[admin[0] for admin in decoratee(query)]})
     return wrapper
 
 
