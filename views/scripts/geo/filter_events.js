@@ -21,7 +21,7 @@ function adminNamesResponseHandler(event,response) {
 	var names = JSON.parse(response);
 	const key = Object.keys(names)[0];
 	var namesElement =  `
-						<label for="admin-names">${Object.keys(names)[0][0].toUpperCase() + Object.keys(names)[0].slice(1)}</label>
+						<label id="admin-names-label" for="admin-names">${key[0].toUpperCase() + key.slice(1)}</label>
 						<div>
 						<select id="admin-names" name="adminNames">
 						`;
@@ -31,7 +31,14 @@ function adminNamesResponseHandler(event,response) {
 		console.log(names[key][i]);
 	}
 	namesElement += "</select>";
-	filterContainer.innerHTML += namesElement;
+	
+	if (!document.getElementById("admin-names")) {
+		filterContainer.innerHTML += namesElement;
+	}
+	else {
+		document.getElementById("admin-names").innerHTML = namesElement;
+		document.getElementById("admin-names-label").innerText = key[0].toUpperCase() + key.slice(1);
+	}
 }
 
 // update filter state
@@ -42,7 +49,6 @@ function updateFilterState(event) {
 
 // update admin-level state
 function updateAdminLevelState(event) {
-	console.log(FilterState);
 	if (FilterState["admin-level"] === event.target.value) { 
 		FilterState["admin-level"] = "";
 		FilterState["granularity"] = "";
@@ -50,23 +56,22 @@ function updateAdminLevelState(event) {
     else {
     	FilterState[event.srcElement.id] = event.target.value;
     	FilterState["granularity"] = "";
-    	console.log(FilterState);
     
 		if (event.target.value === "ward") { 
+			if (document.getElementById("admin-names")) { 
+				document.getElementById("admin-names").remove();
+				document.getElementById("admin-names-label").remove(); 
+			}
 			FilterState["granularity"] = "ward";
 			var grain = document.getElementById("grain");
 			grain.value = "ward";
 			grain.setAttribute("disabled","true");
 		}
 
-		if (event.target.value === "district") {
-			document.getElementById("grain").removeAttribute("disabled",);
+		if (event.target.value === "district" || event.target.value === "province") {
+			FilterState["granularity"] = event.target.value;
 			zvakavanda(event.target.value,adminNamesResponseHandler);
-			
-		}
-		if (event.target.value === "province") {
-			document.getElementById("grain").setAttribute("disabled","false");
-			
+			document.getElementById("grain").removeAttribute("disabled")
 		}
 	}
 }
