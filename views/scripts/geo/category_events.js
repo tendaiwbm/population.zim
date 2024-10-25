@@ -52,6 +52,7 @@ function createFilterHTML(category) {
 				</div>
 				<div id="admin-names-container">
 				</div>
+				<img id="show-label" src="images/ok.png">
 				<script type="text/javascript" src="scripts/geo/filter_events.js"></script>`;
 	}
 }
@@ -72,8 +73,6 @@ function toggleFilterContainer(event) {
 	filterEvents.setAttribute("type","text/javascript");
 	filterEvents.setAttribute("src","scripts/geo/filter_events.js");
 	document.getElementById("filter-container").appendChild(filterEvents);
-	// var grain = document.getElementById("grain");
-	// grain.value = "district";
 }
 
 const distro = document.getElementById("distribution");

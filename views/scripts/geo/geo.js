@@ -24,7 +24,7 @@ function colour(feature) {
 function geometryResponseHandler(response) {
 	for (i=0;i<response["coordinates"].length;i++) {
 		L.polygon(response["coordinates"][i],{
-											  color: "#d9d9d9",
+											  color: "black",
 											  weight: 1.2,
 											  fillColor: colour(response["values"][i]), 
 											  fillOpacity: 1,
@@ -34,8 +34,9 @@ function geometryResponseHandler(response) {
 								             }
 		).addTo(map);
 	}
-	map.attributionControl.addAttribution("ZIMSTAT  |  Leaflet  |  HDX")
+	map.attributionControl.addAttribution("ZIMSTAT  |  Leaflet  |  HDX  |  ESRI")
 	map.zoomControl.setPosition("topright");
+	document.getElementById("filter-container").style.opacity = "60%";
 }
 
 /*

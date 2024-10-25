@@ -3,8 +3,8 @@ var FilterState = {
 				   "admin-level": "",
 				   "granularity": "",
 				   "year": "",
-				   "sex": "",
-				   "zvadzoka": ""
+				   "sex": "total",
+				   "zvadzoka": mhinduro
 				  };
 
 // validate filters
@@ -24,11 +24,11 @@ function adminNamesResponseHandler(event,response) {
 						<label id="admin-names-label" for="admin-names">${key[0].toUpperCase() + key.slice(1)}</label>
 						<div>
 						<select id="admin-names" name="adminNames">
+							<option value=""></option>
 						`;
 									  
 	for (i=0;i<names[key].length;i++) {
 		namesElement += `<option value=${names[key][i]}>${names[key][i]}</option>"`
-		console.log(names[key][i]);
 	}
 	namesElement += "</select>";
 	
@@ -41,9 +41,9 @@ function adminNamesResponseHandler(event,response) {
 	}
 }
 
-// update filter state
+// generic update filter state for year & sex
 function updateFilterState(event) {
-	FilterState[event.target.parentNode.attributes[0].nodeValue] = event.target.innerHTML.toLowerCase();
+	FilterState[event.srcElement.id] = event.target.value;
 	console.log(FilterState);
 }
 
@@ -52,6 +52,7 @@ function updateAdminLevelState(event) {
 	if (FilterState["admin-level"] === event.target.value) { 
 		FilterState["admin-level"] = "";
 		FilterState["granularity"] = "";
+		document.getElementById("grain").getElementsByTagName("option")[3].disabled = false;
     } 
     else {
     	FilterState[event.srcElement.id] = event.target.value;
@@ -69,38 +70,21 @@ function updateAdminLevelState(event) {
 		}
 
 		else {
-			document.getElementById("grain").value = "";
-			FilterState["granularity"] = event.target.value;
-			zvakavanda(event.target.value,adminNamesResponseHandler);
-			document.getElementById("grain").removeAttribute("disabled")
-			if (event.target.value === "district") { document.getElementById("grain").getElementsByTagName("option")[3].disabled = true; }
-			else if (event.target.value === "province") { document.getElementById("grain").getElementsByTagName("option")[3].disabled = false; } 
+			if (event.target.value != "") {
+				document.getElementById("grain").value = "";
+				FilterState["granularity"] = event.target.value;
+				zvakavanda(event.target.value,adminNamesResponseHandler);
+				document.getElementById("grain").removeAttribute("disabled")
+				if (event.target.value === "district") { document.getElementById("grain").getElementsByTagName("option")[3].disabled = true; }
+				else if (event.target.value === "province") { document.getElementById("grain").getElementsByTagName("option")[3].disabled = false; } 
+			}
 		}
 	}
 }
 
 // update granularity state
 function updateGrainState(event) {
-	if (FilterState["admin-level"] === ""){
-		console.log("FIRST SELECT Admin Level");
-		return;
-	}
-	
-	if (event.target.value === "district") {
-		if (FilterState["admin-level"] === "ward") {
-			console.log("granularity - district - not possible for admin level - " + FilterState["admin-level"]);
-			return;
-		}
-	}
-	if (event.target.value === "province") {
-		if ((FilterState["admin-level"] === "ward") || (FilterState["admin-level"] === "district")) {
-			console.log("granularity - province not possible for admin level - " + FilterState["admin-level"]);
-			return;
-		}
-	}
 	FilterState["granularity"] = event.target.value;
-	console.log(FilterState);
-
 }
 
 // Admin Level 
@@ -111,20 +95,18 @@ admin.addEventListener("change",updateAdminLevelState);
 grain = document.getElementById("grain");
 grain.addEventListener("change", updateGrainState);
 
+// Year 
+t = document.getElementById("year");
+t.addEventListener("change", updateFilterState);
 
-// // Year 
-// t = document.getElementsByClassName("year");
-// for (i=0;i<3;i++) { t[i].addEventListener("click", updateFilterState); }
-
-
-// // Sex
-// sex = document.getElementsByClassName("sex");
-// for (i=0;i<2;i++) { sex[i].addEventListener("click", updateFilterState); }
+// Sex
+sex = document.getElementById("sex");
+sex.addEventListener("change", updateFilterState); 
 
 
-// // apply filters
-// dispatcher = document.getElementById("show-label");
-// dispatcher.addEventListener("click", () => {
-// 											  if (validateFilters()) { tumira(event,FilterState); }
-// 										   }
-// 							);
+// apply filters
+dispatcher = document.getElementById("show-label");
+dispatcher.addEventListener("click", () => {
+											  if (validateFilters()) { diridza(FilterState); }
+										   }
+							);
