@@ -38,7 +38,7 @@ function createFilterHTML(category) {
 				<div id="grain-container">
 					<label for="grain">Granularity</label>
 					<div>
-					<select name="grainValues" id="grain" disabled>
+					<select name="grainValues" id="grain">
 						<option value=""></option>
 						<option value="ward">Ward</option>
 						<option value="district">District</option>
@@ -66,39 +66,48 @@ function createFilterHTML(category) {
 						<option value="male">M</option>
 					</select>
 					</div>
+				</div>
+				<div id="admin-names-container">
 				</div>`;
 	}
 }
 
 
-
-function populateFilterContainer() {
-	var container = document.getElementById("filter-container");
-	const filterHTML = createFilterHTML("Distribution");
-	container.innerHTML += filterHTML;
-	console.log(container.innerHTML);
-	var grain = document.getElementById("grain");
-	grain.value = "district";
+function toggleFilterContainer(event) {
+	if (CategoryState["filterActive"]) {	
+		if (CategoryState["categorySelected"] === event.target.innerHTML) {
+			CategoryState["categorySelected"] = "";
+			CategoryState["filterActive"] = false;
+			document.getElementById("filter-container").innerHTML = "";
+			return;
+		}
+	}
+	CategoryState["categorySelected"] = event.target.innerHTML;
+	CategoryState["filterActive"] = true;
+	console.log("category enabled:")
+	console.log(CategoryState);
+	document.getElementById("filter-container").innerHTML = createFilterHTML(event.target.innerHTML);
+	// var grain = document.getElementById("grain");
+	// grain.value = "district";
 }
 
 function insertAdminValuesFilter() {
-	var filterContainer = document.getElementById("filter-container");
-	filterContainer.innerHTML += `<div id="admin-names-container" >
-									  <label for="admin-names">Province</label>
-									  <div>
-									  <select id="admin-names" name="adminNames" multiple>
-									      <option value="Mashonaland Central">Masholanand Central</option>
-									      <option value="Matebeleland South">Matebeleland South</option>
-									      <option value="Uzumba Maramba Pfungwe">Uzumba Maramba Pfungwe</option>
-									  </select>
-									  </div>
+	var filterContainer = document.getElementById("admin-names-container");
+	filterContainer.innerHTML += `
+								  <label for="admin-names">Province</label>
+								  <div>
+								  <select id="admin-names" name="adminNames">
+								      <option value="Mashonaland Central">Masholanand Central</option>
+								      <option value="Matebeleland South">Matebeleland South</option>
+								      <option value="Uzumba Maramba Pfungwe">Uzumba Maramba Pfungwe</option>
+								  </select>
 								  </div>`;
 }
 
 const distro = document.getElementById("distribution");
-distro.addEventListener("click",populateFilterContainer);
+distro.addEventListener("click",toggleFilterContainer);
 const household = document.getElementById("household");
-household.addEventListener("click", insertAdminValuesFilter);
+household.addEventListener("click", populateFilterContainer);
 
 
 
