@@ -4,23 +4,6 @@ var CategoryState = {
 				     "filterActive": false,	
 				    };
 
-function updateCategoryState(event) {
-	const frame = document.getElementById("filter-criteria");
-	if (CategoryState["filterActive"]) {
-		frame.style.visibility = "hidden";
-		//document.getElementById("map").style.visibility = "visible";
-		CategoryState["filterActive"] = false;
-		CategoryState["categorySelected"] = "";
-	}
-	else {
-		document.getElementById("map").style.visibility = "hidden";
-		frame.style.visibility = "visible";
-		CategoryState["filterActive"] = true;
-		CategoryState["categorySelected"] = event.target.innerHTML;
-	}
-	console.log(CategoryState)
-}
-
 function createFilterHTML(category) {
 	if (category === "Distribution") {
 		return `
@@ -68,10 +51,10 @@ function createFilterHTML(category) {
 					</div>
 				</div>
 				<div id="admin-names-container">
-				</div>`;
+				</div>
+				<script type="text/javascript" src="scripts/geo/filter_events.js"></script>`;
 	}
 }
-
 
 function toggleFilterContainer(event) {
 	if (CategoryState["filterActive"]) {	
@@ -84,19 +67,21 @@ function toggleFilterContainer(event) {
 	}
 	CategoryState["categorySelected"] = event.target.innerHTML;
 	CategoryState["filterActive"] = true;
-	console.log("category enabled:")
-	console.log(CategoryState);
 	document.getElementById("filter-container").innerHTML = createFilterHTML(event.target.innerHTML);
+	var filterEvents = document.createElement("script");
+	filterEvents.setAttribute("type","text/javascript");
+	filterEvents.setAttribute("src","scripts/geo/filter_events.js");
+	document.getElementById("filter-container").appendChild(filterEvents);
 	// var grain = document.getElementById("grain");
 	// grain.value = "district";
 }
 
-function insertAdminValuesFilter() {
+function insertAdminValuesFilter(level) {
 	var filterContainer = document.getElementById("admin-names-container");
 	filterContainer.innerHTML += `
-								  <label for="admin-names">Province</label>
+								  <label for="admin-names">${level}</label>
 								  <div>
-								  <select id="admin-names" name="adminNames">
+								  <select id="admin-names" name="adminNames" size=10>
 								      <option value="Mashonaland Central">Masholanand Central</option>
 								      <option value="Matebeleland South">Matebeleland South</option>
 								      <option value="Uzumba Maramba Pfungwe">Uzumba Maramba Pfungwe</option>
@@ -107,7 +92,7 @@ function insertAdminValuesFilter() {
 const distro = document.getElementById("distribution");
 distro.addEventListener("click",toggleFilterContainer);
 const household = document.getElementById("household");
-household.addEventListener("click", populateFilterContainer);
+household.addEventListener("click", toggleFilterContainer);
 
 
 
