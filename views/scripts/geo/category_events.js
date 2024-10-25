@@ -76,19 +76,6 @@ function toggleFilterContainer(event) {
 	// grain.value = "district";
 }
 
-function insertAdminValuesFilter(level) {
-	var filterContainer = document.getElementById("admin-names-container");
-	filterContainer.innerHTML += `
-								  <label for="admin-names">${level}</label>
-								  <div>
-								  <select id="admin-names" name="adminNames" size=10>
-								      <option value="Mashonaland Central">Masholanand Central</option>
-								      <option value="Matebeleland South">Matebeleland South</option>
-								      <option value="Uzumba Maramba Pfungwe">Uzumba Maramba Pfungwe</option>
-								  </select>
-								  </div>`;
-}
-
 const distro = document.getElementById("distribution");
 distro.addEventListener("click",toggleFilterContainer);
 const household = document.getElementById("household");

@@ -68,10 +68,13 @@ function updateAdminLevelState(event) {
 			grain.setAttribute("disabled","true");
 		}
 
-		if (event.target.value === "district" || event.target.value === "province") {
+		else {
+			document.getElementById("grain").value = "";
 			FilterState["granularity"] = event.target.value;
 			zvakavanda(event.target.value,adminNamesResponseHandler);
 			document.getElementById("grain").removeAttribute("disabled")
+			if (event.target.value === "district") { document.getElementById("grain").getElementsByTagName("option")[3].disabled = true; }
+			else if (event.target.value === "province") { document.getElementById("grain").getElementsByTagName("option")[3].disabled = false; } 
 		}
 	}
 }
@@ -82,27 +85,20 @@ function updateGrainState(event) {
 		console.log("FIRST SELECT Admin Level");
 		return;
 	}
-	grain = event.target.innerHTML.toLowerCase();
-	if (FilterState["granularity"] === grain) {
-		FilterState["granularity"] = "";
-		// unhide or make siblings clickable
-	}
-	else {
-		if (grain === "district") {
-			if (FilterState["admin-level"] === "ward") {
-				console.log("granularity - district - not possible for admin level - " + FilterState["admin-level"]);
-				return;
-			}
+	
+	if (event.target.value === "district") {
+		if (FilterState["admin-level"] === "ward") {
+			console.log("granularity - district - not possible for admin level - " + FilterState["admin-level"]);
+			return;
 		}
-		if (grain === "province") {
-			if ((FilterState["admin-level"] === "ward") || (FilterState["admin-level"] === "district")) {
-				console.log("granularity - province not possible for admin level - " + FilterState["admin-level"]);
-				return;
-			}
-		}
-		FilterState[event.target.parentNode.attributes[0].nodeValue] = grain;
-		// hide or make siblings unclickable
 	}
+	if (event.target.value === "province") {
+		if ((FilterState["admin-level"] === "ward") || (FilterState["admin-level"] === "district")) {
+			console.log("granularity - province not possible for admin level - " + FilterState["admin-level"]);
+			return;
+		}
+	}
+	FilterState["granularity"] = event.target.value;
 	console.log(FilterState);
 
 }
@@ -111,11 +107,9 @@ function updateGrainState(event) {
 admin = document.getElementById("admin-level");
 admin.addEventListener("change",updateAdminLevelState);
 
-//for (i=0;i<3;i++) { admin[i].addEventListener("click", updateAdminLevelState); }
-
-// // Spatial Granularity
-// grain = document.getElementsByClassName("granularity");
-// for (i=0;i<3;i++) { grain[i].addEventListener("click", updateGrainState); }
+// Spatial Granularity
+grain = document.getElementById("grain");
+grain.addEventListener("change", updateGrainState);
 
 
 // // Year 
