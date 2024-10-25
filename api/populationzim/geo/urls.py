@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
         path('',views.fetch_distribution),
-        path('zvakavanda/',views.toraZvakavanda),
+        path('zvakavanda/',views.fetch_admin_names),
 
 ]
 

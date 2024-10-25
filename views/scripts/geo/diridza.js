@@ -15,9 +15,7 @@ function munyayi(mahobho,responseHandler) {
 // penengura mhinduro, gadzirisa map
 function mhinduro(event,mutumwa) {
 	console.log(event);
-	const frame = document.getElementById("filter-criteria");
 	const map = document.getElementById("map");
-	frame.style.visibility = "hidden";
 	CategoryState["filterActive"] = false;
 	document.getElementById("map").style.visibility = "visible";
 	geometryResponseHandler(JSON.parse(mutumwa));
@@ -32,9 +30,9 @@ function diridza(params) {
 	return;
 }
 
-function zvakavanda(level) {
-	var mahobho = `${BASE}${API_GEO_STUB}/zvakavanda?level=${level}`;
+function zvakavanda(level,responseHandler) {
+	var mahobho = `${BASE}${API_GEO_STUB}/zvakavanda?admin=${level}`;
 	console.log("Meta URL  >>  " + mahobho);
-	munyayi(mahobho,console.log);
+	munyayi(mahobho,responseHandler);
 }
 

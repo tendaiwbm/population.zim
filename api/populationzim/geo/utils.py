@@ -18,6 +18,12 @@ def wkt2Array(decoratee):
         return JsonResponse(RESPONSE)
     return wrapper
 
+def prepareAdminNames(decoratee):
+    def wrapper(query):
+        return JsonResponse({query.GET["admin"]:[admin[0] for admin in decoratee(query)]})
+    return wrapper
+
+
 @request_handler
 def queryMunyayi(query):
     return query
