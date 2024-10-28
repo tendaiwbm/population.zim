@@ -4,6 +4,7 @@ var FilterState = {
 				   "granularity": "",
 				   "year": "",
 				   "sex": "total",
+				   "admin-names": [],
 				   "zvadzoka": mhinduro
 				  };
 
@@ -20,17 +21,31 @@ function adminNamesResponseHandler(event,response) {
 	var filterContainer = document.getElementById("admin-names-container");
 	var names = JSON.parse(response);
 	const key = Object.keys(names)[0];
-	var namesElement =  `
-						<label id="admin-names-label" for="admin-names">${key[0].toUpperCase() + key.slice(1)}</label>
-						<div>
-						<select id="admin-names" name="adminNames">
-							<option value=""></option>
-						`;
-									  
+	// var namesElement =  `
+	// 					<label id="admin-names-label" for="admin-names">${key[0].toUpperCase() + key.slice(1)}</label>
+	// 					<div>
+	// 					<select id="admin-names" name="adminNames">
+	// 						<option value=""></option>
+	// 					`;
+	var namesElement = `
+	 					<label id="admin-names-label">${key[0].toUpperCase() + key.slice(1)}</label>
+	 					<div>
+	 						<div id="admin-names-dummy-searchable">
+	 							<input id="admin-name-search" type="search" size=21 />
+	 							<img id="admin-names-dropdown" src="images/dropdown.png" />
+	 						</div>
+	 						<div id="admin-names">
+					   `;
+
 	for (i=0;i<names[key].length;i++) {
-		namesElement += `<option value=${names[key][i]}>${names[key][i]}</option>"`
+		namesElement += `<div><input type="checkbox" class="admin-options" name="${names[key][i].toLowerCase()}"/><label for="${names[key][i].toLowerCase()}">${names[key][i]}</label></div>`;
 	}
-	namesElement += "</select>";
+	namesElement += "</div></div>";
+
+	// for (i=0;i<names[key].length;i++) {
+	// 	namesElement += `<option value=${names[key][i]}>${names[key][i]}</option>"`
+	// }
+	// namesElement += "</select>";
 	
 	if (!document.getElementById("admin-names")) {
 		filterContainer.innerHTML += namesElement;
