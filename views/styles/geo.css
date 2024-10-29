@@ -107,6 +107,8 @@
 }
 
 #admin-names {
+	visibility: hidden;
+	padding-top: 5px;
 	width: 180px;
 	height: 200px;
 	overflow: scroll;
