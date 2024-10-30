@@ -4,7 +4,7 @@ var FilterState = {
 				   "granularity": "",
 				   "year": "",
 				   "sex": "total",
-				   "admin-names": [],
+				   "admin-names": new Array(),
 				   "zvadzoka": mhinduro
 				  };
 
@@ -20,9 +20,13 @@ function validateFilters() {
 function adminNamesDropdown(event) {
 	if (document.getElementById("admin-names").style.visibility === "hidden") {
 		document.getElementById("admin-names").style.visibility = "visible";
+		document.getElementById("admin-names").style.height = "200px";
+		document.getElementById("toremovediv").style.height = "223px";
 	}
 	else if (document.getElementById("admin-names").style.visibility === "visible") {
 		document.getElementById("admin-names").style.visibility = "hidden";
+		document.getElementById("admin-names").style.height = "0px";
+		document.getElementById("toremovediv").style.height = "23px";
 	}
 }
 
@@ -32,7 +36,7 @@ function adminNamesResponseHandler(event,response) {
 	const key = Object.keys(names)[0];
 	var namesElement = `
 	 					<label id="admin-names-label">${key[0].toUpperCase() + key.slice(1)}</label>
-	 					<div>
+	 					<div id="toremovediv">
 	 						<div id="admin-names-dummy-searchable">
 	 							<input id="admin-name-search" type="search" size=21 />
 	 							<img id="admin-names-dropdown" src="images/dropdown.png" />
@@ -41,13 +45,24 @@ function adminNamesResponseHandler(event,response) {
 					   `;
 
 	for (i=0;i<names[key].length;i++) {
-		namesElement += `<div><input type="checkbox" class="admin-options" name="${names[key][i].toLowerCase()}"/><label for="${names[key][i].toLowerCase()}" style="padding-left: 5px">${names[key][i]}</label></div>`;
+		namesElement += `<div><input type="checkbox" class="admin-options" name="${names[key][i]}"/><label for="${names[key][i].toLowerCase()}" style="padding-left: 5px">${names[key][i]}</label></div>`;
 	}
 
 	namesElement += "</div></div>";
 	filterContainer.innerHTML = namesElement;
 	document.getElementById("admin-names-label").innerText = key[0].toUpperCase() + key.slice(1);
 	document.getElementById("admin-names-dropdown").addEventListener("click",adminNamesDropdown);
+	var adminOptions = document.getElementsByClassName("admin-options");
+	for (i=0;i<names[key].length;i++) { adminOptions[i].addEventListener("click",updateAdminOptionState); }
+}
+
+function updateAdminOptionState(event) {
+	if (!(FilterState["admin-names"].includes(event.target.name))) { FilterState["admin-names"].push(event.target.name); }
+	else if (FilterState["admin-names"].includes(event.target.name)) {
+		FilterState["admin-names"].splice(FilterState["admin-names"].indexOf(event.target.name),1);
+	}
+	console.log(FilterState);
+	
 }
 
 // generic update filter state for year & sex
