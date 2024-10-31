@@ -4,10 +4,19 @@ returns True if input validated successfully
 otherwise, throws an ambiguous ValueError
 '''
 
+
 def admin_validator(qDictIn):
     vDict = {"ward":"ward","district":"district","province":"province"}
     try:
         adminLevel = vDict[qDictIn["admin"]]
+        '''
+        consider validating admin-names here
+        using a similarly constructed helper function
+        for each admin-name in sequence.
+
+        decorate helper function with queryMediator.
+        evaluate bool(select where admin = adminName)
+        '''
     except:
         raise ValueError(f"Distribution does not understand input '{qDict['admin-level']}'.")
     return True
@@ -21,7 +30,7 @@ def distro_validator(qDictIn):
             }
     qDictOut = {}
     for key in qDictIn:
-        if key != "admin":
+        if "admin" not in key:
             try:
                 qDictOut.setdefault(key,vDict[key][qDictIn[key]])
             except:
