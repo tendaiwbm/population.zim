@@ -4,12 +4,10 @@ from geo.utils import queryMunyayi,wkt2Array,prepareAdminNames
 
 @wkt2Array
 def fetch_distribution(request):
-    print(request.GET)
     if distro_validator(request.GET):
         query = f"""select {request.GET['sex']}_population_{request.GET['year']},st_astext(shape) from prelim.ward """
         if "admin-names" in request.GET:
             query = " ".join([query,f"""where {request.GET['admin']}_name in""","""""".join(["(",",".join([f"'{name}'" for name in request.GET["admin-names"].split(";")]),")"])])
-            print(query)
         return queryMunyayi(query)
 
 @prepareAdminNames
