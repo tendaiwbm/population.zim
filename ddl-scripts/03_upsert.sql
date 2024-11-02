@@ -41,6 +41,30 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION prelim.updateWardDensities()
+RETURNS void
+AS $$
+DECLARE
+	row_	RECORD;
+	sql_	TEXT := NULL;
+BEGIN
+	FOR row_ in
+		SELECT * FROM (VALUES 
+			('male_population_2022','male_population_density_2022'),
+			('male_population_2012','male_population_density_2012'),
+			('female_population_2022','female_population_density_2022'),
+			('female_population_2012','female_population_density_2012'),
+			('total_population_2022','total_population_density_2022'),
+			('total_population_2012','total_population_density_2012'),
+			('total_households_2022','total_households_density_2022'),
+			('total_households_2012','total_households_density_2012'))
+		AS t(source,density)
+	LOOP
+		sql_ := concat(sql_,format('UPDATE prelim.ward SET %I = %I/area;',row_.density,row_.source));
+	END LOOP;
+EXECUTE sql_;
+END;
+$$ LANGUAGE plpgsql;
 
 -----------------------------------------------------------
 -- DISTRICT
@@ -125,6 +149,7 @@ $$ LANGUAGE plpgsql;
 ------------------------------------
 SELECT prelim.updateWardProvince();
 SELECT prelim.updateWardArea();
+SELECT prelim.updateWardDensities();
 SELECT prelim.updateDistrictNumWards();
 SELECT prelim.updateDistrictArea();
 SELECT prelim.updateProvinceNumWards();
