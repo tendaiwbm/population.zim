@@ -15,9 +15,9 @@ map.attributionControl.setPrefix("");
 
 
 function colour(feature) {
-	return feature > 3500 ? "#a8281eff" : 
-		   feature > 2500 ? "#d83020ff" :
-		   feature > 1500 ? "#f07062ff" :
+	return feature > 3.25 ? "#a8281eff" : 
+		   feature > 2.00 ? "#d83020ff" :
+		   feature > 1.25 ? "#f07062ff" :
 		   					"#f89b91ff" ;
 };	
 
@@ -29,7 +29,7 @@ function geometryResponseHandler(response) {
 											  fillColor: colour(response["values"][i]), 
 											  fillOpacity: 1,
 											  attributes: {
-											  				"pop": response["values"][i]
+											  				"pop": 10**(response["values"][i])
 											  			  }
 								             }
 		).addTo(map);

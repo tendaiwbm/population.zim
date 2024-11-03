@@ -1,5 +1,6 @@
 from geo.worker import request_handler
 from django.http import JsonResponse
+import math
 
 def wkt2Array(decoratee):
     def wrapper(query):
@@ -13,7 +14,7 @@ def wkt2Array(decoratee):
                     "admin-level": "district",
                     "select-one": False,
                     "grain": "ward",
-                    "values": [pair[0] for pair in queryResult],
+                    "values": [math.log10(pair[0]) if pair[0] > 0 else pair[0] for pair in queryResult],
                    }
         return JsonResponse(RESPONSE)
     return wrapper
@@ -22,7 +23,6 @@ def prepareAdminNames(decoratee):
     def wrapper(query):
         return JsonResponse({query.GET["admin"]:[admin[0] for admin in decoratee(query)]})
     return wrapper
-
 
 @request_handler
 def queryMunyayi(query):

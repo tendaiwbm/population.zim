@@ -4,7 +4,6 @@ def admin_name_validator(qDictIn):
     names = [name[0] for name in queryMunyayi(f''' SELECT DISTINCT({qDictIn["admin"]}_name) FROM prelim.ward ''')]
     for name in qDictIn["admin-names"].split(";"):
         try:
-            print(name)
             assert name in names
         except:
             raise ValueError(f"""Distribution does not understand input '{name}'""")

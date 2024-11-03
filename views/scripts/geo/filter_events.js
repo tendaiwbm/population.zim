@@ -17,6 +17,12 @@ function validateFilters() {
 	return true;
 }
 
+function tumira(event) {
+	if (validateFilters()) {
+		diridza(FilterState);
+	}
+}
+
 function adminNamesDropdown(event) {
 	if (document.getElementById("admin-names").style.visibility === "hidden") {
 		document.getElementById("admin-names").style.visibility = "visible";
@@ -81,6 +87,7 @@ function updateAdminLevelState(event) {
     else {
     	FilterState[event.srcElement.id] = event.target.value;
     	FilterState["granularity"] = "";
+    	FilterState["admin-names"] = new Array();
     
 		if (event.target.value === "ward") { 
 			if (document.getElementById("admin-names")) { 
@@ -131,7 +138,4 @@ sex.addEventListener("change", updateFilterState);
 
 // apply filters
 dispatcher = document.getElementById("show-label");
-dispatcher.addEventListener("click", () => {
-											  if (validateFilters()) { diridza(FilterState); }
-										   }
-							);
+dispatcher.addEventListener("click", tumira);
