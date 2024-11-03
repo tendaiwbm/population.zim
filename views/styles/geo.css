@@ -106,6 +106,20 @@
 	left: 388px;
 }
 
+#admin-names {
+	visibility: hidden;
+	padding-top: 5px;
+	width: 180px;
+	height: 0px;
+	overflow: scroll;
+}
+
+#admin-names-dropdown {
+	position: absolute;
+	top: 18px;
+	right: 4px;
+}
+
 .leaflet-top,.leaflet-left {
 	visibility: hidden;
 }

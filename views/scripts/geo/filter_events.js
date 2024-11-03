@@ -4,6 +4,7 @@ var FilterState = {
 				   "granularity": "",
 				   "year": "",
 				   "sex": "total",
+				   "admin-names": new Array(),
 				   "zvadzoka": mhinduro
 				  };
 
@@ -16,29 +17,58 @@ function validateFilters() {
 	return true;
 }
 
+function tumira(event) {
+	if (validateFilters()) {
+		diridza(FilterState);
+	}
+}
+
+function adminNamesDropdown(event) {
+	if (document.getElementById("admin-names").style.visibility === "hidden") {
+		document.getElementById("admin-names").style.visibility = "visible";
+		document.getElementById("admin-names").style.height = "200px";
+		document.getElementById("toremovediv").style.height = "223px";
+	}
+	else if (document.getElementById("admin-names").style.visibility === "visible") {
+		document.getElementById("admin-names").style.visibility = "hidden";
+		document.getElementById("admin-names").style.height = "0px";
+		document.getElementById("toremovediv").style.height = "23px";
+	}
+}
+
 function adminNamesResponseHandler(event,response) {
 	var filterContainer = document.getElementById("admin-names-container");
 	var names = JSON.parse(response);
 	const key = Object.keys(names)[0];
-	var namesElement =  `
-						<label id="admin-names-label" for="admin-names">${key[0].toUpperCase() + key.slice(1)}</label>
-						<div>
-						<select id="admin-names" name="adminNames">
-							<option value=""></option>
-						`;
-									  
+	var namesElement = `
+	 					<label id="admin-names-label">${key[0].toUpperCase() + key.slice(1)}</label>
+	 					<div id="toremovediv">
+	 						<div id="admin-names-dummy-searchable">
+	 							<input id="admin-name-search" type="search" size=21 />
+	 							<img id="admin-names-dropdown" src="images/dropdown.png" />
+	 						</div>
+	 						<div id="admin-names" style="visibility: hidden">
+					   `;
+
 	for (i=0;i<names[key].length;i++) {
-		namesElement += `<option value=${names[key][i]}>${names[key][i]}</option>"`
+		namesElement += `<div><input type="checkbox" class="admin-options" name="${names[key][i]}"/><label for="${names[key][i].toLowerCase()}" style="padding-left: 5px">${names[key][i]}</label></div>`;
 	}
-	namesElement += "</select>";
+
+	namesElement += "</div></div>";
+	filterContainer.innerHTML = namesElement;
+	document.getElementById("admin-names-label").innerText = key[0].toUpperCase() + key.slice(1);
+	document.getElementById("admin-names-dropdown").addEventListener("click",adminNamesDropdown);
+	var adminOptions = document.getElementsByClassName("admin-options");
+	for (i=0;i<names[key].length;i++) { adminOptions[i].addEventListener("click",updateAdminOptionState); }
+}
+
+function updateAdminOptionState(event) {
+	if (!(FilterState["admin-names"].includes(event.target.name))) { FilterState["admin-names"].push(event.target.name); }
+	else if (FilterState["admin-names"].includes(event.target.name)) {
+		FilterState["admin-names"].splice(FilterState["admin-names"].indexOf(event.target.name),1);
+	}
+	console.log(FilterState);
 	
-	if (!document.getElementById("admin-names")) {
-		filterContainer.innerHTML += namesElement;
-	}
-	else {
-		document.getElementById("admin-names").innerHTML = namesElement;
-		document.getElementById("admin-names-label").innerText = key[0].toUpperCase() + key.slice(1);
-	}
 }
 
 // generic update filter state for year & sex
@@ -57,11 +87,13 @@ function updateAdminLevelState(event) {
     else {
     	FilterState[event.srcElement.id] = event.target.value;
     	FilterState["granularity"] = "";
+    	FilterState["admin-names"] = new Array();
     
 		if (event.target.value === "ward") { 
 			if (document.getElementById("admin-names")) { 
 				document.getElementById("admin-names").remove();
 				document.getElementById("admin-names-label").remove(); 
+				document.getElementById("admin-names-dummy-searchable").remove();
 			}
 			FilterState["granularity"] = "ward";
 			var grain = document.getElementById("grain");
@@ -74,7 +106,7 @@ function updateAdminLevelState(event) {
 				document.getElementById("grain").value = "";
 				FilterState["granularity"] = event.target.value;
 				zvakavanda(event.target.value,adminNamesResponseHandler);
-				document.getElementById("grain").removeAttribute("disabled")
+				document.getElementById("grain").removeAttribute("disabled");
 				if (event.target.value === "district") { document.getElementById("grain").getElementsByTagName("option")[3].disabled = true; }
 				else if (event.target.value === "province") { document.getElementById("grain").getElementsByTagName("option")[3].disabled = false; } 
 			}
@@ -106,7 +138,4 @@ sex.addEventListener("change", updateFilterState);
 
 // apply filters
 dispatcher = document.getElementById("show-label");
-dispatcher.addEventListener("click", () => {
-											  if (validateFilters()) { diridza(FilterState); }
-										   }
-							);
+dispatcher.addEventListener("click", tumira);

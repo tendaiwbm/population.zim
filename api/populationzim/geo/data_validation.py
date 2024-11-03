@@ -1,8 +1,12 @@
-'''
-simple script to validate & sanitize input from FE
-returns True if input validated successfully
-otherwise, throws an ambiguous ValueError
-'''
+from geo.utils import queryMunyayi
+
+def admin_name_validator(qDictIn):
+    names = [name[0] for name in queryMunyayi(f''' SELECT DISTINCT({qDictIn["admin"]}_name) FROM prelim.ward ''')]
+    for name in qDictIn["admin-names"].split(";"):
+        try:
+            assert name in names
+        except:
+            raise ValueError(f"""Distribution does not understand input '{name}'""")
 
 def admin_validator(qDictIn):
     vDict = {"ward":"ward","district":"district","province":"province"}
@@ -21,11 +25,13 @@ def distro_validator(qDictIn):
             }
     qDictOut = {}
     for key in qDictIn:
-        if key != "admin":
+        if "admin" not in key:
             try:
                 qDictOut.setdefault(key,vDict[key][qDictIn[key]])
             except:
                 raise ValueError(f"""Distribution does not understand input '{key}'.""")
-        else:
+        elif key == "admin":
             admin_validator(qDictIn)
+        elif key == "admin-names":
+            admin_name_validator(qDictIn)
     return True
