@@ -8,11 +8,17 @@ def wkt2Array(decoratee):
         geom = [pair[1] for pair in queryResult]
         multiPoly = [string.lstrip('MULTIPOLYGON').lstrip("(((").rstrip(")))").split("),(") for string in geom]
         polyArray = []
-        for mPoly in multiPoly: polyArray.append([[[float(latlon.split(" ")[1]), float(latlon.split(" ")[0])] for poly in mPoly for latlon in poly.split(",")]])
+        for mPoly in multiPoly: 
+            polyList = []
+            for poly in mPoly:
+                polyCoordList = []
+                for latlon in poly.split(","):
+                    polyCoordList.append([float(latlon.split(" ")[1]), float(latlon.split(" ")[0])])
+                polyList.append([polyCoordList])
+            polyArray.append(polyList)
         RESPONSE = {
                     "coordinates": polyArray,
                     "admin-level": "district",
-                    "select-one": False,
                     "grain": "ward",
                     "values": [math.log10(pair[0]) if pair[0] > 0 else pair[0] for pair in queryResult],
                    }
