@@ -15,7 +15,8 @@ CREATE TABLE prelim.province (
 	numberofdistricts INTEGER,
 	numberofwards INTEGER,
 	area NUMERIC,
-	shape GEOGRAPHY(MULTIPOLYGON,4326)
+	shape GEOGRAPHY(MULTIPOLYGON,4326),
+	geom DOUBLE PRECISION[][][][]
 );
 
 CREATE TABLE prelim.district (
@@ -23,7 +24,8 @@ CREATE TABLE prelim.district (
 	numberofwards INTEGER,
 	province_name VARCHAR(30) references prelim.province(province_name),
 	area NUMERIC,
-	shape GEOGRAPHY(MULTIPOLYGON,4326)
+	shape GEOGRAPHY(MULTIPOLYGON,4326),
+	geom DOUBLE PRECISION[][][][]
 );
 
 CREATE TABLE prelim.ward (
@@ -50,6 +52,7 @@ CREATE TABLE prelim.ward (
 	avg_householdsize_2012 NUMERIC(3,1) NOT NULL CHECK(avg_householdsize_2012 = ROUND((total_population_2012/total_households_2012::NUMERIC),1)),
 	area NUMERIC,
 	shape GEOGRAPHY(MULTIPOLYGON,4326),
+	geom DOUBLE PRECISION[][][][],
 	PRIMARY KEY(ward_number,district_name)
 );
 
