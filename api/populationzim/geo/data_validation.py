@@ -1,7 +1,7 @@
-from geo.utils import queryMunyayi
+from geo.utils import query_munyayi
 
 def admin_name_validator(qDictIn):
-    names = [name[0] for name in queryMunyayi(f''' SELECT DISTINCT({qDictIn["admin"]}_name) FROM prelim.ward ''')]
+    names = [name[0] for name in query_munyayi(f''' SELECT DISTINCT({qDictIn["admin"]}_name) FROM prelim.ward ''')]
     for name in qDictIn["admin-names"].split(";"):
         try:
             assert name in names
