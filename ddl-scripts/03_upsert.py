@@ -21,20 +21,30 @@ def extract_ring(polygon):
     return [[float(point.split(" ")[1]),float(point.split(" ")[0])] for point in polygon.split(",")]
 
 def reconstruct_multi(polygons):
-    if len(polygons) == 1:
-        return [extract_ring(polygons[0])]
-    elif len(polygons) == 2:
-        innerRing = list(reversed(extract_ring(polygons[1])))
-        outerRing = extract_ring(polygons[0])
-        innerRing += [[0,0] for i in range(len(outerRing)-len(innerRing))]
-        return [outerRing,innerRing] 
+    multi = []
+    outerRing = extract_ring(polygons[0])
+    multi.append(outerRing)
+    if len(polygons) > 1:
+        for polygon in polygons[1:]:
+            innerRing = list(reversed(extract_ring(polygon)))
+            innerRing += [[0,0] for i in range(len(outerRing)-len(innerRing))]
+            multi.append(innerRing) 
+    return multi
 
 def wkt2Array():
-    for admin in ["ward"]:
-        queryResult = tumira(f"""SELECT ward_number,district_name,ST_ASTEXT(shape) FROM prelim.{admin}""")
-        geom = [row[2] for row in queryResult]
-        ward = [row[0] for row in queryResult]
-        district = [row[1] for row in queryResult]
+    for admin in ["ward","district","province"]:
+        print(f"converting WKT to ARRAY for table {admin}")
+        query = "SELECT ST_ASTEXT(shape),"
+        if admin == "ward": query = " ".join([query,"ward_number, district_name"])
+        else:               query = " ".join([query,f"{admin}_name"])
+        query = " ".join([query,f"FROM prelim.{admin}"])
+        queryResult = tumira(query)
+        geom = [row[0] for row in queryResult]
+        if admin == "ward":
+            ward = [row[1] for row in queryResult]
+            district = [row[2] for row in queryResult]
+        else:
+            admin_names = [row[1] for row in queryResult]
         QUERY = """"""
         for idx,mPoly in enumerate(geom): 
             mPoly = mPoly.replace("MULTIPOLYGON","").strip("(((").strip(")))").split("), (")
@@ -46,9 +56,17 @@ def wkt2Array():
                 for poly in mPoly:
                     polygons = poly.split("),(")
                     multiPoly.append([reconstruct_multi(polygons)])
-            QUERY += f"""UPDATE prelim.ward
-                         SET geom = ARRAY{multiPoly}
-                         WHERE ward_number = {ward[idx]}
-                         AND district_name = '{district[idx]}';"""
+            if admin == "ward":
+                QUERY += f"""UPDATE prelim.ward
+                             SET geom = ARRAY{multiPoly}
+                             WHERE ward_number = {ward[idx]}
+                             AND district_name = '{district[idx]}';"""
+            else:
+                QUERY += f"""UPDATE prelim.{admin}
+                             SET geom = ARRAY{multiPoly}
+                             WHERE {admin}_name = '{admin_names[idx]}';"""
+            
         dbg.exec(QUERY)
 
+if __name__ == "__main__":
+    wkt2Array()
