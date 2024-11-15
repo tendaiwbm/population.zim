@@ -1,4 +1,3 @@
-from django.http import JsonResponse
 from geo.data_validation import distro_validator,admin_validator
 from geo.utils import query_munyayi,prepare_distribution,prepare_admin_names
 
