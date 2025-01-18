@@ -19,6 +19,11 @@ function validateFilters() {
 
 function tumira(event) {
 	if (validateFilters()) {
+		if (document.getElementById("admin-names")) { 
+			if (document.getElementById("admin-names").style.visibility === "visible") {
+				document.getElementById("admin-names").style.visibility = "hidden";
+			}
+		}
 		diridza(FilterState);
 	}
 }
