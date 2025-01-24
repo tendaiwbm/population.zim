@@ -20,9 +20,12 @@ function validateFilters() {
 function tumira(event) {
 	if (validateFilters()) {
 		if (document.getElementById("admin-names")) { 
-			if (document.getElementById("admin-names").style.visibility === "visible") {
-				document.getElementById("admin-names").style.visibility = "hidden";
-			}
+			// console.log(document.getElementById("admin-names").style.visibility)
+			// if (document.getElementById("admin-names").style.visibility === "visible") {
+			// 	document.getElementById("admin-names").style.visibility = "hidden";
+			// }
+			document.getElementById("admin-names").style.visibility = "hidden";
+			document.getElementById("toremovediv").style.height = "23px";
 		}
 		diridza(FilterState);
 	}
@@ -48,11 +51,11 @@ function adminNamesResponseHandler(event,response) {
 	var namesElement = `
 	 					<label id="admin-names-label">${key[0].toUpperCase() + key.slice(1)}</label>
 	 					<div id="toremovediv">
-	 						<div id="admin-names-dummy-searchable">
-	 							<input id="admin-name-search" type="search" size=21 />
-	 							<img id="admin-names-dropdown" src="images/dropdown.png" />
-	 						</div>
-	 						<div id="admin-names" style="visibility: hidden">
+ 						<div id="admin-names-dummy-searchable">
+ 							<input id="admin-name-search" type="search" size=21 />
+ 							<img id="admin-names-dropdown" src="images/dropdown.png" />
+ 						</div>
+ 						<div id="admin-names" style="visibility: hidden">
 					   `;
 
 	for (i=0;i<names[key].length;i++) {
