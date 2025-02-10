@@ -12,3 +12,6 @@ def prepare_admin_names(decoratee):
 def query_munyayi(query):
     return query
 
+
+def new_function():
+    print("testing git checkout file")
