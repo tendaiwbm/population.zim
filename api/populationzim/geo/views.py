@@ -3,6 +3,7 @@ from geo.utils import query_munyayi,prepare_admin_names
 from django.views import View
 from django.http import JsonResponse
 from math import log10
+from geo.tasks import add
 
 class Distribution(View):
     category = "Distribution"
@@ -19,7 +20,7 @@ class Distribution(View):
         return RESPONSE
 
     def get(self,request):
-        print(self)
+        print(add(4,4))
         if distro_validator(request.GET):
             
             if request.GET['grain'] == "ward":

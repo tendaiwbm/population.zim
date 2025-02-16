@@ -1,4 +1,4 @@
-from geo.worker import request_handler
+from geo.mutori import request_handler
 from django.http import JsonResponse
 import math
 
