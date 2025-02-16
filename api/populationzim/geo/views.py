@@ -20,7 +20,8 @@ class Distribution(View):
         return RESPONSE
 
     def get(self,request):
-        print(add(4,4))
+        result = (add(4,4))
+        print(result)
         if distro_validator(request.GET):
             
             if request.GET['grain'] == "ward":
