@@ -3,7 +3,7 @@ from geo.utils import query_munyayi,prepare_admin_names
 from django.views import View
 from django.http import JsonResponse
 from math import log10
-from geo.tasks import add
+from geo.tasks import add,geom_entrypoint
 
 class Distribution(View):
     category = "Distribution"
@@ -11,8 +11,9 @@ class Distribution(View):
     def prepare_distribution(self,query):
         queryResult = query_munyayi(query)
         geom = (pair[1] for pair in queryResult)
+        geom = geom_entrypoint(geom).get()
         RESPONSE = {
-                    "coordinates": [polygon if len(polygon[0]) == 1 else [[polygon[0][0],[point for point in polygon[0][1] if point != [0,0]]]] for polygon in geom],
+                    "coordinates": geom,
                     "admin-level": "district",
                     "grain": "ward",
                     "values": [log10(pair[0]) if pair[0] > 0 else pair[0] for pair in queryResult],
@@ -20,8 +21,6 @@ class Distribution(View):
         return RESPONSE
 
     def get(self,request):
-        result = (add(4,4))
-        print(result)
         if distro_validator(request.GET):
             
             if request.GET['grain'] == "ward":
