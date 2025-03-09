@@ -68,7 +68,7 @@ function toggleFilterContainer(event) {
 	}
 	CategoryState["categorySelected"] = event.target.innerHTML;
 	CategoryState["filterActive"] = true;
-	document.getElementById("filter-container").innerHTML = createFilterHTML(event.target.innerHTML);
+	document.getElementById("filter-container").innerHTML = createFilterHTML(event.target.innerText);
 	var filterEvents = document.createElement("script");
 	filterEvents.setAttribute("type","text/javascript");
 	filterEvents.setAttribute("src","scripts/geo/filter_events.js");

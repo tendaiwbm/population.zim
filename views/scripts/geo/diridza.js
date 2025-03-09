@@ -4,10 +4,10 @@ var API_GEO_STUB = "api/geo";
 function munyayi(mahobho,responseHandler) {
 	var mutumwa = new XMLHttpRequest();
 	mutumwa.onreadystatechange = function(event) {
-												 	if (mutumwa.readyState === 4 && mutumwa.status === 200) {
-												 		responseHandler(event,mutumwa.response);
-												 	}
-												 }
+	 	if (mutumwa.readyState === 4 && mutumwa.status === 200) {
+	 		responseHandler(event,mutumwa.response);
+	 	}
+	}
 	mutumwa.open("GET",mahobho,true);
 	mutumwa.send();
 }

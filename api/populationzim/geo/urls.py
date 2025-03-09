@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
+from .views import Distribution,fetch_admin_names
 
 urlpatterns = [
-        path('',views.fetch_distribution),
-        path('zvakavanda/',views.fetch_admin_names),
+        path('',Distribution.as_view()),
+        path('zvakavanda/',fetch_admin_names),
 
 ]
 

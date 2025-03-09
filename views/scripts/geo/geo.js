@@ -7,7 +7,7 @@ var map = L.map('map', {
 						 crs: L.CRS.EPSG4326,
 						 layers: [],
 						 center: [-17.817452,31.052431],
-						 zoom: 12,	
+						 zoom: 12.5,	
 						}
 				);
 
@@ -25,11 +25,11 @@ function geometryResponseHandler(response) {
 	for (i=0;i<response["coordinates"].length;i++) {
 		L.polygon(response["coordinates"][i],{
 											  color: "black",
-											  weight: 1.2,
+											  weight: 1.5,
 											  fillColor: colour(response["values"][i]), 
 											  fillOpacity: 1,
 											  attributes: {
-											  				"pop": 10**(response["values"][i])
+											  				"pop": response["values"][i]
 											  			  }
 								             }
 		).addTo(map);
@@ -38,9 +38,3 @@ function geometryResponseHandler(response) {
 	map.zoomControl.setPosition("topright");
 	document.getElementById("filter-container").style.opacity = "60%";
 }
-
-/*
-/// Esri color ramps - Esri Red 1
-// #a8281eff,#d83020ff,#f07062ff,#f89b91ff,#fbb1a8ff
-const colors = ["#a8281eff", "#d83020ff", "#f07062ff", "#f89b91ff", "#fbb1a8ff"];
-*/
